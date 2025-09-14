@@ -1,0 +1,1 @@
+# Vedanta adapter package

@@ -1,0 +1,69 @@
+version: "3.9"
+
+services:
+  decision:
+    build: .
+    command: uvicorn services.decision.app:app --host 0.0.0.0 --port ${DECISION_PORT:-8000} --workers 1
+    environment:
+      - APP_ENV=dev
+      - CONFIG_PATH=/app/configs/default.yaml
+      - REDIS_URL=redis://redis:6379/0
+    volumes:
+      - ".:/app"
+    ports:
+      - "8000:8000"
+    depends_on:
+      - redis
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  featurehub:
+    build: .
+    command: uvicorn services.featurehub.app:app --host 0.0.0.0 --port ${FEATUREHUB_PORT:-8010}
+    environment:
+      - APP_ENV=dev
+      - REDIS_URL=redis://redis:6379/0
+    volumes:
+      - ".:/app"
+    ports:
+      - "8010:8010"
+    depends_on:
+      - redis
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8010/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  vision:
+    build: .
+    command: uvicorn services.vision.app:app --host 0.0.0.0 --port ${VISION_PORT:-8020}
+    environment:
+      - APP_ENV=dev
+    volumes:
+      - ".:/app"
+    ports:
+      - "8020:8020"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8020/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+volumes:
+  redis_data:

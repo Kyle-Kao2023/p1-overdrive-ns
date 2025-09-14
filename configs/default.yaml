@@ -1,0 +1,22 @@
+vol_sweet_spot:
+  bull: {sigma_min: 0.0012, sigma_max: 0.0022, skew_min: 0.5}
+  bear: {sigma_min: 0.0015, sigma_max: 0.0028, skew_max: -0.5}
+gates:
+  C_align_min: 0.85
+  C_of_min: 0.80
+  C_vision_min: 0.75
+  p_hit_min: 0.75
+  epsilon: 0.0005
+  slip_q95_max: 0.0005
+  spread_bp_max: 5
+  min_depth_px: 1000000
+exit:
+  hazard_thresh: 0.30
+  phit_floor: 0.50
+  t_hit_grace_bars: 3
+  reduce_pct: 0.5
+exec:
+  mode: "post_only_limit_or_mpo"
+  reduce_only_fallback: true
+blacklist_events: []
+latency_slo_ms: 70
