@@ -1,0 +1,16 @@
+
+You are an expert project architect for AI-powered trading systems.
+Generate a new repository skeleton named `p1-system-v2-overdrive-ns-llm` with the following structure and explanations.
+This is an upgrade from `p1-overdrive-ns` (v1). The v2 introduces **LLM reasoning, learner/trainer modules, FinGPT/FinRL integration, and extended feature encoding**.
+Please include placeholders, clear module comments, and TODO markers for future development.
+
+[Structure & Files same as repository skeleton in this package]
+- See the `docs/README_v2.md` for key motivations, cautions, and TODO.
+- Emphasize: LLM only arbitrates borderline decisions; hard risk is enforced by Conformal, Hazard Exit, and Liq-Buffer gates.
+- Emphasize: xLSTM replaces LSTM due to better long-range memory and lower latency vs attention models.
+- Emphasize: Store both Likert-7 discrete direction and continuous dir_score for training + gates.
+
+Deliverables:
+1) Create the directories and placeholder modules listed.
+2) Insert TODOs and docstrings so engineers know how to implement each part.
+3) Ensure code style is Pythonic and modular, ready for ONNX or Torch inference backends.

@@ -1,0 +1,188 @@
+You are Claude Code, acting as a repo auditor for an AI trading system.
+
+## TASK
+Audit the current workspace to verify that the repository implements **P1-System v2 (Overdrive-NS + LLM 共學版)** according to the PRD below. 
+Return:
+1) A PASS/FAIL summary
+2) A detailed JSON report per check item
+3) Concrete fix diffs or shell commands for each FAIL
+
+Run shell commands when needed; read files; do not modify files unless asked. Be strict but helpful.
+
+---
+
+## MACHINE-READABLE PRD (YAML)
+prd:
+  name: p1-system-v2-overdrive-ns-llm
+  purpose:
+    - 100x No-Stop decision engine with multi-brain fusion
+    - Human-in-the-loop co-learning via LLM reasoning & learner/trainer
+  key_updates:
+    - LLM_Reasoner: numeric features -> human-style reasoning/meta-tags; used only on borderline decisions
+    - xLSTM: replaces vanilla LSTM; long-seq memory, low latency, multi-modal fusion
+    - Learner_Trainer: IL + RLHF + Offline-RL (FinRL)
+    - FinGPT_FinRL_Integration: news tokens + RL env
+    - Extended_Features: Likert-7 direction + continuous dir_score + meta-tags + equilibrium markers
+    - Decision_Pipeline_Rework: CTFG + xLSTM + LLM + Conformal -> Gates -> Candidate
+  latency_budget_ms:
+    decision_p95: 70
+    tempo_head_p95: 8-15
+    llm_arbiter_timeout: 150
+  gates:
+    - Vol_Sweet_Spot
+    - Consensus
+    - Liq_Buffer
+    - Safety_Hazard (Conformal + BOCPD)
+  data_channels:
+    - TradingView indicators (RSI/TSI/KAMA/OBV/BB/Pivot/Regression)
+    - Orderflow (CVD/ΔCVD/OBI/L2)
+    - On-chain (OI ROC, Gas Z, Netflow)
+    - Vision tokens (YOLO/DETR: box/engulf/channel/rejection/…)
+    - News (FinGPT → c_news/event_risk)
+  direction_encoding:
+    scale: Likert7 (-3..+3) with continuous dir_score [-1..1]
+    dims: [HTF, LTF, Micro]
+  learner_targets:
+    - p_hit (hit@+1%)
+    - t_hit (time-to-TP quantiles)
+    - mae_q (MAE quantiles)
+    - policy prefs (IL/RLHF)
+  execution_layer:
+    engine: Freqtrade adapter (limit/post-only/IOC, dynamic TP, no hard SL)
+    circuit_breaker: volatility spikes & event bans
+
+expected_tree:
+  - datahub/tv_connector.py
+  - datahub/orderflow_connector.py
+  - datahub/onchain_connector.py
+  - datahub/vision_connector.py
+  - datahub/news_connector.py
+  - features/encoding.py
+  - features/schema.py
+  - brains/ctfg.py
+  - brains/xlstm.py
+  - brains/llm_reasoner.py
+  - brains/conformal.py
+  - brains/hazard_exit.py
+  - decision/pipeline.py
+  - decision/gates.py
+  - decision/trace_logger.py
+  - learner/imitation.py
+  - learner/rl_trainer.py
+  - learner/feedback.py
+  - learner/experience_store.py
+  - execution/freqtrade_adapter.py
+  - execution/circuit_breaker.py
+  - automation/n8n_workflow.json
+  - automation/kafka_stream.py
+  - docs/README_v2.md
+  - CURSOR_PROMPT.txt (or equivalent cursor prompt file at repo root)
+
+must_have_content:
+  docs/README_v2.md:
+    - "LLM Reasoner"
+    - "xLSTM"
+    - "CTFG"
+    - "Conformal"
+    - "Learner/Trainer"
+    - "FinGPT"
+    - "FinRL"
+    - "100x"
+    - "No-Stop"
+  features/schema.py:
+    keys: [ts, symbol, tf, tv, structure, location, vision_tokens, of, vol, news, direction]
+  features/encoding.py:
+    - Likert bins covering [-1,1]
+    - function: encode_direction
+    - output keys: dir_score_htf, dir_htf, dir_score_ltf, dir_ltf, dir_score_micro, dir_micro
+  decision/pipeline.py:
+    - imports ctfg, xlstm, gates, llm_reasoner
+    - borderline logic present (e.g., 0.72..0.78) and LLM called only when borderline
+  brains/xlstm.py:
+    - function present: infer_sequence(...)
+    - comment or docstring states xLSTM/SSM & low latency intent
+  brains/llm_reasoner.py:
+    - reason(...) returns {rationale, c_llm, meta_tag}
+    - note about timeout/schema-safe & borderline-only usage
+  brains/conformal.py:
+    - risk bounds or quantile/conformal wording
+  brains/hazard_exit.py:
+    - BOCPD or hazard wording
+  decision/gates.py:
+    - mentions: Vol, Consensus, Liq-Buffer, Safety/Hazard
+  execution/freqtrade_adapter.py:
+    - mentions: limit/post-only/IOC, dynamic TP, no hard SL
+  datahub/news_connector.py:
+    - mentions: FinGPT or sentiment tokens
+  docs:
+    cautions:
+      - "LLM 成本" or "LLM cost"
+      - "標註" or "labeled trades"
+      - "No-Stop" risk & hazard/liq-buffer
+  todo_markers:
+    - at least one "TODO" comment in each top-level module to guide engineers
+
+acceptance_metrics:
+  - "python -m compileall" passes (no SyntaxErrors)
+  - ≥ 90% of expected files exist
+  - All must_have_content checks pass
+  - README_v2.md includes a TODO section
+  - Automation folder present with at least one file
+  - JSON validity for automation/n8n_workflow.json
+  - Latency/timeout numbers appear somewhere in code or README (70ms, 8-15ms, 150ms)
+  - Number of TODO markers across repo ≥ 10
+
+report_format:
+  summary:
+    status: PASS|FAIL
+    reasons: [string]
+  checks:
+    - id: string
+      title: string
+      status: PASS|FAIL|WARN
+      detail: string
+      evidence: [paths or code snippets]
+      fix: string|[commands...]
+  metrics:
+    files_found_pct: number
+    todo_count: integer
+    compileall_ok: boolean
+  remediation_plan:
+    - step: integer
+      action: string
+      commands: [string]
+
+---
+
+## PROCEDURE (run these; adapt to workspace)
+1) List files:
+   - `ls -laR`
+2) Check existence vs expected_tree:
+   - For each expected path, mark PRESENT/ABSENT.
+3) Validate JSON files:
+   - `jq . automation/n8n_workflow.json` (if jq unavailable, open and parse in Python).
+4) Grep content constraints:
+   - README anchors, schema keys, function names, keywords ("LLM Reasoner","xLSTM","CTFG","Conformal","FinGPT","FinRL","100x","No-Stop")
+   - Latency numbers: "70", "150", "8-15"
+   - "TODO" markers count
+5) Python syntax:
+   - `python -m compileall -q .` ; if errors, capture paths and lines.
+6) Produce the JSON report in the specified format and a concise human summary.
+
+---
+
+## OUTPUT EXAMPLE (shape)
+{
+  "summary": {"status":"PASS","reasons":["All required files exist","compileall OK"]},
+  "checks": [
+    {"id":"tree","title":"Expected tree exists","status":"PASS","detail":"24/24 files found","evidence":["..."],"fix":""},
+    {"id":"schema","title":"Feature schema keys","status":"PASS","detail":"All required keys present","evidence":["features/schema.py: FEATURE_SCHEMA ..."],"fix":""},
+    {"id":"pipeline","title":"Decision pipeline content","status":"WARN","detail":"Borderline range found but LLM timeout not stated in code","evidence":["decision/pipeline.py: borderline 0.72..0.78"],"fix":"Document timeout 150ms in pipeline docstring"}
+  ],
+  "metrics":{"files_found_pct":100,"todo_count":18,"compileall_ok":true},
+  "remediation_plan":[
+    {"step":1,"action":"Add LLM timeout note","commands":["sed -i '1i # LLM arbiter timeout=150ms' decision/pipeline.py"]}
+  ]
+}
+
+Now start the audit and print the final JSON report followed by a short human-readable summary.
