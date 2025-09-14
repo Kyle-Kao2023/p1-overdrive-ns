@@ -9,6 +9,8 @@ from ..core.utils import perf_monitor, timer
 from ..gates import consensus, event_latency, liq_buffer, vol
 from ..models.ctfg import ctfg_model
 from ..models.quantile import quantile_predictor
+from ..brains.xlstm import infer_sequence as xlstm_infer_sequence
+from ..brains.llm_reasoner import reason as llm_reason
 from ..schemas.features import EnterRequest
 from ..schemas.responses import EnterResponse
 from ..schemas.base import ExecutionConfig, RiskMetrics
@@ -232,6 +234,13 @@ def decide_enter(request: EnterRequest, config: Dict = None) -> EnterResponse:
             
             # 2. PGM模型推理
             pgm_result = ctfg_model.predict(request.features)
+
+            # 2.1 xLSTM 長序推斷（v2 升級）：併行估計時序上下文
+            xlstm_meta = {"tf": request.tf, "symbol": request.symbol}
+            try:
+                xlstm_ctx = xlstm_infer_sequence(token_seq=[], of_seq=[], tv_seq=[], meta=xlstm_meta)
+            except Exception:
+                xlstm_ctx = {}
             
             # 3. 脆弱性测试
             fragility_ok, fragility_msg = run_fragility_test(request, pgm_result)
@@ -251,6 +260,25 @@ def decide_enter(request: EnterRequest, config: Dict = None) -> EnterResponse:
                     runtime_ms=timing["duration_ms"]
                 )
             
+            # 4.1 邊界單 → 啟用 LLM 仲裁（僅在邊界區間介入）
+            used_llm = False
+            llm_out = None
+            borderline = 0.72 <= pgm_result.p_hit <= 0.78
+            if borderline:
+                try:
+                    llm_out = llm_reason(
+                        {
+                            "symbol": request.symbol,
+                            "tf": request.tf,
+                            "features": request.features.model_dump(),
+                            "pgm": pgm_result.model_dump(),
+                            "xlstm": xlstm_ctx,
+                        }
+                    )
+                    used_llm = True
+                except Exception:
+                    used_llm = False
+
             # 5. 生成允许响应
             suggested_side, allocation = determine_allocation_and_side(request, pgm_result)
             
@@ -272,6 +300,14 @@ def decide_enter(request: EnterRequest, config: Dict = None) -> EnterResponse:
             # 生成推理链
             reason_chain = generate_reason_chain(request, True, passed_checks, failed_checks, pgm_result)
             reason_chain.append(fragility_msg)
+            if xlstm_ctx:
+                reason_chain.append(
+                    f"xLSTM: p_up_1pct={xlstm_ctx.get('p_up_1pct', 0):.2f}/t50={xlstm_ctx.get('t_hit50', 0)}"
+                )
+            if used_llm and isinstance(llm_out, dict):
+                reason_chain.append(
+                    f"LLM_arb: meta={llm_out.get('meta_tag','-')}, c_llm={llm_out.get('c_llm',0):.2f}"
+                )
             
             # 记录性能
             perf_monitor.record("decision", timing["duration_ms"])
