@@ -1,20 +1,20 @@
 # P1 Overdrive-NS Trading Builder
 
 > **決策系統** - 高勝率A+段落交易的智能決策引擎
-> 🔥 **NEW: v2 (Overdrive-NS + LLM 共學版)** - AI增強決策，人機協同學習
+> # **NEW: v2 (Overdrive-NS + LLM 共學版)** - AI增強決策，人機協同學習
 
 ## 🆕 What's New in v2
 
 **v2 引入人工智能增強功能：**
 
-- 🧠 **LLM Reasoner** - 邊界情況下的人類式推理與元標籤生成
-- ⚡ **xLSTM Architecture** - 長序列記憶，低延遲多模態融合 (YOLO V8看"空間排列" / xLSTM看"時間序列")
-- 📊 **Likert-7 Direction Encoding** - 連續方向評分 + 離散Likert標籤
-- 🎓 **Learner/Trainer Pipeline** - 模仿學習 + RLHF + 離線強化學習
-- 📰 **FinGPT Integration** - 新聞情緒分析與事件風險評估
-- 🏆 **FinRL Training** - 專業金融強化學習環境
-- 🔍 **Conformal Prediction** - 統計嚴格的不確定性量化
-- 🚨 **BOCPD Hazard Detection** - 變點檢測與智能退出
+- 1. **LLM Reasoner** - 邊界情況下的人類式推理與元標籤生成
+- 2. **xLSTM Architecture** - 長序列記憶，低延遲多模態融合 (YOLO V8看"空間排列" / xLSTM看"時間序列")
+- 3. **Likert-7 Direction Encoding** - 連續方向評分 + 離散Likert標籤
+- 4. **Learner/Trainer Pipeline** - 模仿學習 + RLHF + 離線強化學習
+- 5. **FinGPT Integration** - 新聞情緒分析與事件風險評估
+- 6. **FinRL Training** - 專業金融強化學習環境
+- 7. **Conformal Prediction** - 統計嚴格的不確定性量化
+- 8. **BOCPD Hazard Detection** - 變點檢測與智能退出
 
 ### v1 vs v2 比較
 
@@ -38,7 +38,7 @@
 
 ## 🎯 项目概述
 
-P1 Overdrive-NS 是一个专为100x槓桿與不預掛止損（No-Stop）设计的交易决策系统。**v2版本**通过AI增強架構，結合人類交易心理與數學嚴謹性，在高風險環境中實現精準的A+段落交易。
+P1 Overdrive-NS 是一个加密貨幣智能合約交易设计的交易决策系统。**v2版本**通过AI增強架構，結合人類交易心理與數學嚴謹性，在高風險環境中實現精準的A+段落交易。
 
 ### 🔄 啟用v2功能
 
