@@ -1,14 +1,14 @@
 # P1 Overdrive-NS Trading Builder
 
-> **100x No-Stop 精准決策系統** - 高勝率A+段落交易的智能決策引擎
+> **決策系統** - 高勝率A+段落交易的智能決策引擎
 > 🔥 **NEW: v2 (Overdrive-NS + LLM 共學版)** - AI增強決策，人機協同學習
 
 ## 🆕 What's New in v2
 
-**v2 引入革命性的人工智能增強功能：**
+**v2 引入人工智能增強功能：**
 
 - 🧠 **LLM Reasoner** - 邊界情況下的人類式推理與元標籤生成
-- ⚡ **xLSTM Architecture** - 長序列記憶，低延遲多模態融合
+- ⚡ **xLSTM Architecture** - 長序列記憶，低延遲多模態融合 (YOLO V8看"空間排列" / xLSTM看"時間序列")
 - 📊 **Likert-7 Direction Encoding** - 連續方向評分 + 離散Likert標籤
 - 🎓 **Learner/Trainer Pipeline** - 模仿學習 + RLHF + 離線強化學習
 - 📰 **FinGPT Integration** - 新聞情緒分析與事件風險評估
@@ -680,14 +680,12 @@ learner.train_on_experience_batch(
 
 ## 📞 支持
 
-- 📧 Email: support@p1trading.dev
+- 📧 Email: ids20232024@gmail.com
 - 💬 Discord: [P1 Trading Community](https://discord.gg/p1trading)
 - 📚 文档: [docs.p1trading.dev](https://docs.p1trading.dev)
 - 🐛 问题报告: [GitHub Issues](https://github.com/user/p1-overdrive-ns/issues)
 - 🆕 **v2專用**: [v2-feedback@p1trading.dev](mailto:v2-feedback@p1trading.dev)
 
 ---
-
-⚡ **风险提示**: 本系统为高风险交易工具，100x杠杆交易具有极高风险，请确保充分理解风险并在模拟环境中充分测试后再用于实盘交易。
 
 🚀 **Happy Trading!** - P1 Team
