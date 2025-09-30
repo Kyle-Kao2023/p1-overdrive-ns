@@ -5,16 +5,16 @@
 
 ## What's New in v2
 
-**v2 引入革命性的人工智能增強功能：**
+**v2 引入人工智能增強功能：**
 
-- **LLM Reasoner** - 邊界情況下的人類式推理與元標籤生成
-- **xLSTM Architecture** - 長序列記憶，低延遲多模態融合
-- **Likert-7 Direction Encoding** - 連續方向評分 + 離散Likert標籤
-- **Learner/Trainer Pipeline** - 模仿學習 + RLHF + 離線強化學習
-- **FinGPT Integration** - 新聞情緒分析與事件風險評估
-- **FinRL Training** - 專業金融強化學習環境
-- **Conformal Prediction** - 統計嚴格的不確定性量化
-- **BOCPD Hazard Detection** - 變點檢測與智能退出
+- 1. **LLM Reasoner** - 邊界情況下的人類式推理與元標籤生成
+- 2. **xLSTM Architecture** - 長序列記憶，低延遲多模態融合 (YOLO V8看"空間排列" / xLSTM看"時間序列")
+- 3. **Likert-7 Direction Encoding** - 連續方向評分 + 離散Likert標籤
+- 4. **Learner/Trainer Pipeline** - 模仿學習 + RLHF + 離線強化學習
+- 5. **FinGPT Integration** - 新聞情緒分析與事件風險評估
+- 6. **FinRL Training** - 專業金融強化學習環境
+- 7. **Conformal Prediction** - 統計嚴格的不確定性量化
+- 8. **BOCPD Hazard Detection** - 變點檢測與智能退出
 
 ### v1 vs v2 比較
 
@@ -38,7 +38,7 @@
 
 ## 项目概述
 
-P1 Overdrive-NS 是一个专为100x槓桿與不預掛止損（No-Stop）设计的交易决策系统。**v2版本**通过AI增強架構，結合人類交易心理與數學嚴謹性，在高風險環境中實現精準的A+段落交易。
+P1 Overdrive-NS 是一个加密貨幣智能合約交易设计的交易决策系统。**v2版本**通过AI增強架構，結合人類交易心理與數學嚴謹性，在高風險環境中實現精準的A+段落交易。
 
 ###啟用v2功能
 
@@ -673,21 +673,15 @@ learner.train_on_experience_batch(
 - 👥 **專家參與**: 建議有經驗交易員參與標註和偏好設定
 - 🔄 **持續更新**: 定期更新標註數據以適應市場變化
 
-### No-Stop風險提醒
-- 🚨 **三重安全**: Hazard/Conformal/Liq-Buffer必須全部通過
-- 📊 **風險監控**: 實時監控倉位風險和市場異常
-- 🛑 **緊急停止**: 提供手動覆蓋和緊急平倉功能
 
 ## 📞 支持
 
-- 📧 Email: support@p1trading.dev
+- 📧 Email: ids20232024@gmail.com
 - 💬 Discord: [P1 Trading Community](https://discord.gg/p1trading)
 - 📚 文档: [docs.p1trading.dev](https://docs.p1trading.dev)
 - 🐛 问题报告: [GitHub Issues](https://github.com/user/p1-overdrive-ns/issues)
 - 🆕 **v2專用**: [v2-feedback@p1trading.dev](mailto:v2-feedback@p1trading.dev)
 
 ---
-
-⚡ **风险提示**: 本系统为高风险交易工具，100x杠杆交易具有极高风险，请确保充分理解风险并在模拟环境中充分测试后再用于实盘交易。
 
 🚀 **Happy Trading!** - P1 Team
