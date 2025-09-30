@@ -12,3 +12,4 @@ FEATURE_SCHEMA = {
     "news": dict,
     "direction": dict
 }
+

@@ -1,20 +1,20 @@
 # P1 Overdrive-NS Trading Builder
 
 > **100x No-Stop 精准決策系統** - 高勝率A+段落交易的智能決策引擎
-> 🔥 **NEW: v2 (Overdrive-NS + LLM 共學版)** - AI增強決策，人機協同學習
+> **NEW: v2 (Overdrive-NS + LLM 共學版)** - AI增強決策，人機協同學習
 
-## 🆕 What's New in v2
+## What's New in v2
 
 **v2 引入革命性的人工智能增強功能：**
 
-- 🧠 **LLM Reasoner** - 邊界情況下的人類式推理與元標籤生成
-- ⚡ **xLSTM Architecture** - 長序列記憶，低延遲多模態融合
-- 📊 **Likert-7 Direction Encoding** - 連續方向評分 + 離散Likert標籤
-- 🎓 **Learner/Trainer Pipeline** - 模仿學習 + RLHF + 離線強化學習
-- 📰 **FinGPT Integration** - 新聞情緒分析與事件風險評估
-- 🏆 **FinRL Training** - 專業金融強化學習環境
-- 🔍 **Conformal Prediction** - 統計嚴格的不確定性量化
-- 🚨 **BOCPD Hazard Detection** - 變點檢測與智能退出
+- **LLM Reasoner** - 邊界情況下的人類式推理與元標籤生成
+- **xLSTM Architecture** - 長序列記憶，低延遲多模態融合
+- **Likert-7 Direction Encoding** - 連續方向評分 + 離散Likert標籤
+- **Learner/Trainer Pipeline** - 模仿學習 + RLHF + 離線強化學習
+- **FinGPT Integration** - 新聞情緒分析與事件風險評估
+- **FinRL Training** - 專業金融強化學習環境
+- **Conformal Prediction** - 統計嚴格的不確定性量化
+- **BOCPD Hazard Detection** - 變點檢測與智能退出
 
 ### v1 vs v2 比較
 
@@ -29,18 +29,18 @@
 | **訓練環境** | 無 | FinRL專業環境 |
 | **推理透明度** | 數字輸出 | 自然語言解釋 |
 
-> 💡 **選擇指南**: v1適合純數量化策略；v2適合需要AI增強和持續學習的高級策略
+> **選擇指南**: v1適合純數量化策略；v2適合需要AI增強和持續學習的高級策略
 
 [![CI/CD](https://github.com/user/p1-overdrive-ns/workflows/CI%2FCD%20Pipeline/badge.svg)](https://github.com/user/p1-overdrive-ns/actions)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115.2-009688.svg)](https://fastapi.tiangolo.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## 🎯 项目概述
+## 项目概述
 
 P1 Overdrive-NS 是一个专为100x槓桿與不預掛止損（No-Stop）设计的交易决策系统。**v2版本**通过AI增強架構，結合人類交易心理與數學嚴謹性，在高風險環境中實現精準的A+段落交易。
 
-### 🔄 啟用v2功能
+###啟用v2功能
 
 ```yaml
 # configs/v2.yaml

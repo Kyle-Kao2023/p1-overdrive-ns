@@ -19,3 +19,4 @@ def encode_direction(evidence: dict) -> dict:
         "dir_score_micro": 0.0, "dir_micro": 0,
         "explain": ["placeholder"]
     }
+

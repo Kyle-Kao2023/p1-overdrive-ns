@@ -2,3 +2,4 @@
 def run_gates(snapshot: dict, ctx: dict):
     # TODO: real checks; placeholder always True
     return True, ["ok"]
+

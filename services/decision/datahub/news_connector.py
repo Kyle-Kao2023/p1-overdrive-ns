@@ -2,3 +2,4 @@
 def summarize_news(symbol: str):
     # TODO
     return {"c_news": None, "event_risk": "none"}
+

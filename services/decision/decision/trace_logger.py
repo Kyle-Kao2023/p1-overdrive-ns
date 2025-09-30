@@ -2,3 +2,4 @@
 def log(trace: dict):
     # TODO: write to parquet/db
     pass
+

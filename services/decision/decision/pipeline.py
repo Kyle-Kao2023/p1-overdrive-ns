@@ -20,3 +20,4 @@ def decide(snapshot: dict):
         used_llm = True
     action = "long" if ctx["long_score"] >= ctx["short_score"] else "short"
     return {"allow": True, "action": action, "context": ctx, "used_llm": used_llm}
+
