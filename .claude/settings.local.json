@@ -16,9 +16,36 @@
       "Bash(python:*)",
       "Bash(python -m pytest:*)",
       "Bash(python3 -m pytest:*)",
+      "Bash(gemini-cli:*)",
+      "Bash(codex-cli:*)",
+      "Bash(aider:*)",
       "WebFetch(domain:docs.anthropic.com)",
-      "WebFetch(domain:github.com)"
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:ai.google.dev)",
+      "WebFetch(domain:platform.openai.com)"
     ],
-    "deny": []
+    "deny": [],
+    "external_agents": {
+      "gemini-cli": {
+        "role": "data_analyst",
+        "specialties": ["quantitative_analysis", "statistical_validation", "performance_metrics"],
+        "max_timeout": "30s",
+        "cost_budget": "$5/day",
+        "preferred_tasks": ["market_data_analysis", "backtesting", "statistical_validation"]
+      },
+      "codex-cli": {
+        "role": "code_generator", 
+        "specialties": ["api_integration", "test_generation", "boilerplate_code"],
+        "max_timeout": "20s",
+        "cost_budget": "$3/day",
+        "preferred_tasks": ["api_connectors", "test_suites", "data_adapters"]
+      },
+      "aider": {
+        "role": "code_refactor",
+        "specialties": ["code_refactoring", "bug_fixing", "performance_optimization"],
+        "max_timeout": "25s", 
+        "preferred_tasks": ["legacy_code_improvement", "performance_tuning"]
+      }
+    }
   }
 }
